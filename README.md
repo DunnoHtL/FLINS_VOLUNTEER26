@@ -11,9 +11,9 @@
 |------|------|----------|
 | 签到注册组 | Anna Ao, Yan Huang, Runsong Jia, Zihe Liu | 前台签到、信息引导 |
 | 路线引导组 | Yin Yi, Yunping Shi, Kuo Shi, Changhua Xu | 早间路口接引参会者 |
-| 现场设备调试组 | Ming Zhou, Wei Duan, Runsong Jia, Siming Deng, En Yu, Hanshi Xu | 会场设备检查与场控 |
+| 现场设备调试组 | Ming Zhou, Wei Duan, Runsong Jia, Siming Deng, En Yu, Hanshi Xu, Yifan He | 会场设备检查与场控 |
 
-> **注：** Runsong Jia 和 Siming Deng 同时参与签到注册组和现场设备调试组，请注意协调时间。
+> **注：** Runsong Jia 同时参与签到注册组和现场设备调试组，请注意协调时间。
 
 ---
 
