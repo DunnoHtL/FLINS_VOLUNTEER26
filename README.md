@@ -11,7 +11,7 @@
 |------|------|----------|
 | 签到注册组 | Anna Ao, Yan Huang, Runsong Jia, Zihe Liu | 前台签到、信息引导 |
 | 路线引导组 | Yin Yi, Yunping Shi, Kuo Shi, Changhua Xu | 早间路口接引参会者 |
-| 现场设备调试组 | Ming Zhou, Wei Duan, Runsong Jia, Siming Deng, En Yu, Hanshi Xu, Yifan He | 会场设备检查与场控 |
+| 现场设备调试组 | Ming Zhou, Wei Duan, Runsong Jia, Siming Deng, En Yu, Hanshi Xu, Yifan He, Xiaoyu Yang | 会场设备检查与场控 |
 
 > **注：** Runsong Jia 同时参与签到注册组和现场设备调试组，请注意协调时间。
 
@@ -91,7 +91,7 @@
 |------|--------|
 | CB08.02.002 | Runsong Jia, Siming Deng, Yifan He |
 | CB08.03.002 | En Yu, Hanshi Xu |
-| CB08.02.005（Auditorium 报告厅）| Ming Zhou, Wei Duan |
+| CB08.02.005（Auditorium 报告厅）| Ming Zhou, Wei Duan, Xiaoyu Yang |
 
 **工作起始：** 从 **7月14日（周一）** 视察会场起，每天须提前到场检查。
 
