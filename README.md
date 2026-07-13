@@ -9,7 +9,7 @@
 
 | 组别 | 成员 | 主要职责 |
 |------|------|----------|
-| 签到注册组 | Anna Ao, Yan Huang, Runsong Jia, Siming Deng | 前台签到、信息引导 |
+| 签到注册组 | Anna Ao, Yan Huang, Runsong Jia, Siming Deng, Zihe Liu | 前台签到、信息引导 |
 | 路线引导组 | Yin Yi, Yunping Shi, Kuo Shi, Changhua Xu | 早间路口接引参会者 |
 | 现场设备调试组 | Ming Zhou, Wei Duan, Runsong Jia, Siming Deng, En Yu, Hanshi Xu | 会场设备检查与场控 |
 
@@ -19,7 +19,7 @@
 
 ## 一、签到注册组
 
-**成员：** Anna Ao, Yan Huang, Runsong Jia, Siming Deng
+**成员：** Anna Ao, Yan Huang, Runsong Jia, Siming Deng, Zihe Liu
 
 **签到表：** https://docs.google.com/spreadsheets/d/1xvlkNUYVX2A8beVhxaGfv9ru7JpfgBDtM74KnzshNo8/edit?usp=sharing
 
