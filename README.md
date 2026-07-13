@@ -11,7 +11,7 @@
 |------|------|----------|
 | 签到注册组 | Anna Ao, Yan Huang, Runsong Jia, Zihe Liu | 前台签到、信息引导 |
 | 路线引导组 | Yin Yi, Yunping Shi, Kuo Shi, Changhua Xu | 早间路口接引参会者 |
-| 现场设备调试组 | Ming Zhou, Wei Duan, En Yu, Hanshi Xu, Xiaoyu Yang | 会场设备检查与场控 |
+| 现场设备调试组 | Ming Zhou, Wei Duan, Siming Deng, Yifan He, En Yu, Hanshi Xu, Xiaoyu Yang | 会场设备检查与场控 |
 
 ---
 
@@ -87,6 +87,7 @@
 
 | 房间 | 负责人 |
 |------|--------|
+| CB08.02.002 | Siming Deng, Yifan He |
 | CB08.03.002 | En Yu, Hanshi Xu |
 | CB08.02.005（Auditorium 报告厅）| Ming Zhou, Wei Duan, Xiaoyu Yang |
 
