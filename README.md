@@ -10,7 +10,7 @@
 | 组别 | 成员 | 主要职责 |
 |------|------|----------|
 | 签到注册组 | Anna Ao, Yan Huang, Runsong Jia, Siming Deng | 前台签到、信息引导 |
-| 路线引导组 | Yin Yi, Yunping Shi, Xiaoqun Wei, Changhua Xu | 早间路口接引参会者 |
+| 路线引导组 | Yin Yi, Yunping Shi, Kuo Shi, Changhua Xu | 早间路口接引参会者 |
 | 现场设备调试组 | Ming Zhou, Wei Duan, Runsong Jia, Siming Deng, En Yu, Hanshi Xu | 会场设备检查与场控 |
 
 > **注：** Runsong Jia 和 Siming Deng 同时参与签到注册组和现场设备调试组，请注意协调时间。
@@ -47,7 +47,7 @@
 
 ## 二、路线引导组
 
-**成员：** Yin Yi, Yunping Shi, Xiaoqun Wei, Changhua Xu
+**成员：** Yin Yi, Yunping Shi, Kuo Shi, Changhua Xu
 
 **工作时间：** 每天早上 **08:00 — 10:00**（主要集中在 **7月18日之前**，即7月15、16、17日）
 
@@ -57,7 +57,7 @@
 
 ```
 [Four Points 酒店门口] → [UTS 11号楼与2号楼之间] → [UTS 后 Thomas Street 人行横道前] → [Harris St & Ultimo Rd 路口] → 会场
-      Yunping Shi               Yin Yi                      Changhua Xu                        Xiaoqun Wei
+      Yunping Shi               Yin Yi                      Changhua Xu                        Kuo Shi
 ```
 
 ![路线引导点位地图](image.png)
@@ -67,7 +67,7 @@
 | 1 | Four Points 酒店门口 | **Yunping Shi** | → 指引至点位 2 |
 | 2 | UTS 11号楼和2号楼之间空地 | **Yin Yi** | → 指引至点位 3 |
 | 3 | UTS 后 Thomas Street 人行横道前 | **Changhua Xu** | → 指引至点位 4 |
-| 4 | Harris St 和 Ultimo Rd 交叉路口 | **Xiaoqun Wei** | → 指引至会场 |
+| 4 | Harris St 和 Ultimo Rd 交叉路口 | **Kuo Shi** | → 指引至会场 |
 
 ### 每日 Checklist
 
