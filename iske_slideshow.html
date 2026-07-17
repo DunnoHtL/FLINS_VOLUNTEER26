@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISKE Through the Years · 2007–2025</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0a0a;
+    color: #fff;
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+  }
+
+  /* Header */
+  #header {
+    text-align: center;
+    padding: 18px 20px 10px;
+    background: linear-gradient(to bottom, #0a0a0a, transparent);
+    position: relative;
+    z-index: 10;
+  }
+  #header h1 {
+    font-size: 1.1rem;
+    font-weight: 300;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #bbb;
+  }
+
+  /* Slide area */
+  #stage {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 60px 10px;
+    opacity: 0;
+    transition: opacity 0.7s ease;
+    pointer-events: none;
+  }
+  .slide.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Photo grid */
+  .photo-grid {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  .photo-grid .photo-wrap {
+    flex: 1;
+    max-width: 48%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .photo-grid.three .photo-wrap {
+    max-width: 32%;
+  }
+  .photo-grid.one .photo-wrap {
+    max-width: 70%;
+  }
+  .photo-wrap img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+    display: block;
+  }
+
+  /* Caption */
+  .caption {
+    text-align: center;
+    margin-top: 14px;
+    flex-shrink: 0;
+  }
+  .caption .year {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #fff;
+    line-height: 1;
+  }
+  .caption .location {
+    font-size: 0.95rem;
+    font-weight: 300;
+    letter-spacing: 0.18em;
+    color: #aaa;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* Nav arrows */
+  .nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.08);
+    border: none;
+    color: #fff;
+    font-size: 1.6rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    z-index: 20;
+  }
+  .nav:hover { background: rgba(255,255,255,0.2); }
+  #prev { left: 10px; }
+  #next { right: 10px; }
+
+  /* Bottom bar */
+  #footer {
+    padding: 10px 20px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(to top, #0a0a0a, transparent);
+  }
+  #counter {
+    font-size: 0.75rem;
+    color: #666;
+    white-space: nowrap;
+    min-width: 56px;
+  }
+  #progress-bar {
+    flex: 1;
+    height: 2px;
+    background: #222;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  #progress-fill {
+    height: 100%;
+    background: #fff;
+    border-radius: 2px;
+    transition: width 0.3s ease;
+  }
+  #play-btn {
+    background: none;
+    border: 1px solid #444;
+    color: #aaa;
+    font-size: 0.7rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    transition: all 0.2s;
+  }
+  #play-btn:hover { border-color: #888; color: #fff; }
+
+  #timer-bar {
+    height: 2px;
+    background: rgba(255,255,255,0.15);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
+  #timer-fill {
+    height: 100%;
+    background: rgba(255,255,255,0.5);
+    width: 0%;
+  }
+</style>
+</head>
+<body>
+
+<div id="header">
+  <h1>ISKE · International Symposium on Knowledge and Systems Engineering</h1>
+</div>
+
+<div id="stage">
+  <button class="nav" id="prev">&#8249;</button>
+  <button class="nav" id="next">&#8250;</button>
+  <div id="timer-bar"><div id="timer-fill"></div></div>
+</div>
+
+<div id="footer">
+  <span id="counter">1 / 40</span>
+  <div id="progress-bar"><div id="progress-fill"></div></div>
+  <button id="play-btn">PAUSE</button>
+</div>
+
+<script>
+const BASE = '历届ISKE照片/';
+
+const slides = [
+  // 2007 Chengdu
+  { year:'2007', location:'Chengdu, China', photos:[
+    '2007成都/微信图片_20251114100105_423_299.jpg',
+    '2007成都/微信图片_20251114100302_426_299.jpg'
+  ]},
+
+  // 2009 Hasselt
+  { year:'2009', location:'Hasselt, Belgium', photos:[
+    '2009哈萨尔特/微信图片_20251113181144_323_299.jpg',
+    '2009哈萨尔特/微信图片_20251113181210_325_299.jpg',
+    '2009哈萨尔特/微信图片_20251113181225_326_299.jpg'
+  ]},
+  { year:'2009', location:'Hasselt, Belgium', photos:[
+    '2009哈萨尔特/微信图片_20251113181239_327_299.jpg',
+    '2009哈萨尔特/微信图片_20251113181249_328_299.jpg',
+    '2009哈萨尔特/微信图片_20251113181322_329_299.jpg'
+  ]},
+
+  // 2011 Shanghai
+  { year:'2011', location:'Shanghai, China', photos:[
+    '2011上海/微信图片_20251114111526_479_299.jpg'
+  ]},
+
+  // 2014 Brazil
+  { year:'2014', location:'Brazil', photos:[
+    '2014巴西/微信图片_20251113195138_387_299.jpg',
+    '2014巴西/微信图片_20251113195146_390_299.jpg',
+    '2014巴西/微信图片_20251113195148_391_299.jpg'
+  ]},
+
+  // 2015 Taipei
+  { year:'2015', location:'Taipei, Taiwan', photos:[
+    '2015台北/微信图片_20251114101059_435_299.jpg',
+    '2015台北/微信图片_20251114101239_437_299.jpg'
+  ]},
+
+  // 2016 Roubaix
+  { year:'2016', location:'Roubaix, France', photos:[
+    '2016法国鲁贝/微信图片_20251113191124_378_299.jpg',
+    '2016法国鲁贝/微信图片_20251113191126_379_299.jpg',
+    '2016法国鲁贝/微信图片_20251113191128_380_299.jpg'
+  ]},
+  { year:'2016', location:'Roubaix, France', photos:[
+    '2016法国鲁贝/微信图片_20251113191131_381_299.jpg',
+    '2016法国鲁贝/微信图片_20251113195853_393_299.jpg',
+    '2016法国鲁贝/微信图片_20251113195943_395_299.jpg'
+  ]},
+  { year:'2016', location:'Roubaix, France', photos:[
+    '2016法国鲁贝/微信图片_20251113200129_396_299.jpg',
+    '2016法国鲁贝/微信图片_20251114004532_408_299.jpg',
+    '2016法国鲁贝/微信图片_20251114004534_409_299.jpg'
+  ]},
+  { year:'2016', location:'Roubaix, France', photos:[
+    '2016法国鲁贝/微信图片_20251114004536_410_299.jpg'
+  ]},
+
+  // 2017 Nanjing
+  { year:'2017', location:'Nanjing, China', photos:[
+    '2017南京/2_DSC_1968.jpg',
+    '2017南京/2_DSC_1973.jpg',
+    '2017南京/2_DSC_2039.jpg'
+  ]},
+  { year:'2017', location:'Nanjing, China', photos:[
+    '2017南京/2_DSC_2051.jpg',
+    '2017南京/2_DSC_2059.jpg',
+    '2017南京/2_DSC_2075.jpg'
+  ]},
+  { year:'2017', location:'Nanjing, China', photos:[
+    '2017南京/2_DSC_2091.jpg',
+    '2017南京/2_DSC_2117.jpg',
+    '2017南京/2_DSC_2323.jpg'
+  ]},
+  { year:'2017', location:'Nanjing, China', photos:[
+    '2017南京/2_iske2017合影.jpg',
+    '2017南京/微信图片_20251113182212_330_299.jpg',
+    '2017南京/微信图片_20251113182317_331_299.jpg'
+  ]},
+  { year:'2017', location:'Nanjing, China', photos:[
+    '2017南京/微信图片_20251113182346_332_299.jpg',
+    '2017南京/微信图片_20251113182602_334_299.jpg',
+    '2017南京/微信图片_20251114105354_465_299.jpg'
+  ]},
+  { year:'2017', location:'Nanjing, China', photos:[
+    '2017南京/微信图片_20251114105422_467_299.jpg'
+  ]},
+
+  // 2018 Belfast
+  { year:'2018', location:'Belfast, Northern Ireland', photos:[
+    '2018贝尔法斯特/微信图片_20251113184333_374_299.jpg',
+    '2018贝尔法斯特/微信图片_20251113184333_375_299.jpg',
+    '2018贝尔法斯特/微信图片_20251113200436_397_299.jpg'
+  ]},
+  { year:'2018', location:'Belfast, Northern Ireland', photos:[
+    '2018贝尔法斯特/微信图片_20251113200613_401_299.jpg',
+    '2018贝尔法斯特/微信图片_20251113200749_403_299.jpg'
+  ]},
+  { year:'2018', location:'Belfast, Northern Ireland', photos:[
+    '2018贝尔法斯特/微信图片_20251114094336_412_299.jpg',
+    '2018贝尔法斯特/微信图片_20251114094412_413_299.jpg'
+  ]},
+
+  // 2019 Dalian
+  { year:'2019', location:'Dalian, China', photos:[
+    '2019大连/微信图片_20251113183301_353_299.jpg',
+    '2019大连/微信图片_20251113183302_354_299.jpg'
+  ]},
+  { year:'2019', location:'Dalian, China', photos:[
+    '2019大连/微信图片_20251113183302_355_299.jpg',
+    '2019大连/微信图片_20251114101950_442_299.jpg'
+  ]},
+
+  // 2020 Online
+  { year:'2020', location:'Online (Germany)', photos:[
+    '2020德国线上/微信图片_20251114135234_485_299.png'
+  ]},
+
+  // 2021 Chengdu
+  { year:'2021', location:'Chengdu, China', photos:[
+    '2021成都/1_IMG_20211127_085915.jpg',
+    '2021成都/1_IMG_20211127_101925.jpg',
+    '2021成都/1_mmexport337935a75e349712f9c3997ca265ced3_1637996.jpeg'
+  ]},
+  { year:'2021', location:'Chengdu, China', photos:[
+    '2021成都/1_mmexportba5771685516d4f2075add3191eb87b2_1637996.jpeg',
+    '2021成都/1_mmexporte3c7e88a749b089b313696a63c0b042a_1637996.jpeg',
+    '2021成都/微信图片_20251114101553_439_299.jpg'
+  ]},
+  { year:'2021', location:'Chengdu, China', photos:[
+    '2021成都/微信图片_20251114101555_440_299.jpg'
+  ]},
+
+  // 2022 Tianjin
+  { year:'2022', location:'Tianjin, China', photos:[
+    '2022天津/微信图片_20251114103822_451_299.jpg',
+    '2022天津/微信图片_20251114103832_452_299.jpg',
+    '2022天津/微信图片_20251114103840_453_299.jpg'
+  ]},
+  { year:'2022', location:'Tianjin, China', photos:[
+    '2022天津/微信图片_20251114110241_472_299.jpg',
+    '2022天津/微信图片_20251114110250_473_299.jpg',
+    '2022天津/微信图片_20251114110300_474_299.jpg'
+  ]},
+  { year:'2022', location:'Tianjin, China', photos:[
+    '2022天津/微信图片_20251114110309_475_299.jpg',
+    '2022天津/微信图片_20251114110317_476_299.jpg'
+  ]},
+
+  // 2023 Fuzhou
+  { year:'2023', location:'Fuzhou, China', photos:[
+    '2023福州/微信图片_20251113191921_386_299.jpg',
+    '2023福州/微信图片_20251114094745_414_299.jpg'
+  ]},
+
+  // 2024 Madrid
+  { year:'2024', location:'Madrid, Spain', photos:[
+    '2024马德里/微信图片_20251113183419_358_299.jpg',
+    '2024马德里/微信图片_20251113183420_359_299.jpg',
+    '2024马德里/微信图片_20251113183656_363_299.jpg'
+  ]},
+  { year:'2024', location:'Madrid, Spain', photos:[
+    '2024马德里/微信图片_20251113183657_364_299.jpg',
+    '2024马德里/微信图片_20251113183657_365_299.jpg',
+    '2024马德里/微信图片_20251113183658_366_299.jpg'
+  ]},
+  { year:'2024', location:'Madrid, Spain', photos:[
+    '2024马德里/微信图片_20251113191749_384_299.jpg',
+    '2024马德里/微信图片_20251113191834_385_299.jpg',
+    '2024马德里/微信图片_20251114135234_485_299.png'
+  ]},
+
+  // 2025 Shunde
+  { year:'2025', location:'Shunde, China', photos:['2025顺德/1.jpg','2025顺德/2.JPG','2025顺德/3.jpg']},
+  { year:'2025', location:'Shunde, China', photos:['2025顺德/4.JPG','2025顺德/5.JPG','2025顺德/6.JPG']},
+  { year:'2025', location:'Shunde, China', photos:['2025顺德/6-1.JPG','2025顺德/7.JPG','2025顺德/8.JPG']},
+  { year:'2025', location:'Shunde, China', photos:['2025顺德/9.jpg','2025顺德/10.JPG','2025顺德/11.JPG']},
+  { year:'2025', location:'Shunde, China', photos:['2025顺德/12.JPG','2025顺德/13.JPG','2025顺德/14.JPG']},
+  { year:'2025', location:'Shunde, China', photos:['2025顺德/15.JPG','2025顺德/16.JPG','2025顺德/17.JPG']},
+  { year:'2025', location:'Shunde, China', photos:['2025顺德/18.JPG','2025顺德/19.JPG','2025顺德/20.JPG']},
+  { year:'2025', location:'Shunde, China', photos:['2025顺德/21.JPG','2025顺德/22.jpg']}
+];
+
+const TOTAL = slides.length;
+const INTERVAL = 5000;
+let current = 0;
+let playing = true;
+let timer = null;
+let timerAnim = null;
+let timerStart = null;
+
+const stage = document.getElementById('stage');
+const counter = document.getElementById('counter');
+const progressFill = document.getElementById('progress-fill');
+const playBtn = document.getElementById('play-btn');
+const timerFill = document.getElementById('timer-fill');
+
+// Build slide elements
+const slideEls = slides.map((data, i) => {
+  const div = document.createElement('div');
+  div.className = 'slide';
+
+  const n = data.photos.length;
+  const grid = document.createElement('div');
+  grid.className = 'photo-grid' + (n === 1 ? ' one' : n === 3 ? ' three' : '');
+
+  data.photos.forEach(p => {
+    const wrap = document.createElement('div');
+    wrap.className = 'photo-wrap';
+    const img = document.createElement('img');
+    img.src = BASE + p;
+    img.alt = data.year + ' ' + data.location;
+    img.loading = i < 3 ? 'eager' : 'lazy';
+    wrap.appendChild(img);
+    grid.appendChild(wrap);
+  });
+
+  const caption = document.createElement('div');
+  caption.className = 'caption';
+  caption.innerHTML = `<div class="year">${data.year}</div><div class="location">${data.location}</div>`;
+
+  div.appendChild(grid);
+  div.appendChild(caption);
+  stage.appendChild(div);
+  return div;
+});
+
+function goTo(n) {
+  slideEls[current].classList.remove('active');
+  current = (n + TOTAL) % TOTAL;
+  slideEls[current].classList.add('active');
+  counter.textContent = (current + 1) + ' / ' + TOTAL;
+  progressFill.style.width = ((current + 1) / TOTAL * 100) + '%';
+  resetTimer();
+}
+
+function resetTimer() {
+  cancelAnimationFrame(timerAnim);
+  timerFill.style.width = '0%';
+  if (!playing) return;
+  timerStart = performance.now();
+  function tick(now) {
+    const elapsed = now - timerStart;
+    const pct = Math.min(elapsed / INTERVAL * 100, 100);
+    timerFill.style.width = pct + '%';
+    if (elapsed < INTERVAL) {
+      timerAnim = requestAnimationFrame(tick);
+    } else {
+      goTo(current + 1);
+    }
+  }
+  timerAnim = requestAnimationFrame(tick);
+}
+
+function togglePlay() {
+  playing = !playing;
+  playBtn.textContent = playing ? 'PAUSE' : 'PLAY';
+  if (playing) resetTimer();
+  else { cancelAnimationFrame(timerAnim); timerFill.style.width = '0%'; }
+}
+
+document.getElementById('prev').onclick = () => goTo(current - 1);
+document.getElementById('next').onclick = () => goTo(current + 1);
+playBtn.onclick = togglePlay;
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowLeft')  goTo(current - 1);
+  if (e.key === 'ArrowRight') goTo(current + 1);
+  if (e.key === ' ') { e.preventDefault(); togglePlay(); }
+});
+
+// Init
+goTo(0);
+</script>
+</body>
+</html>
