@@ -270,7 +270,84 @@
 <script>
 const BASE = '历届ISKE照片/';
 
-const slides = [
+// Photos visually confirmed to show 10+ people — each gets its own slide.
+const LARGE_GROUP_PHOTOS = new Set([
+  '2007成都/微信图片_20251114100105_423_299.jpg',
+  '2007成都/微信图片_20251114100302_426_299.jpg',
+  '2009哈萨尔特/微信图片_20251113181144_323_299.jpg',
+  '2011上海/微信图片_20251114111526_479_299.jpg',
+  '2016法国鲁贝/微信图片_20251113195853_393_299.jpg',
+  '2016法国鲁贝/微信图片_20251113195943_395_299.jpg',
+  '2016法国鲁贝/微信图片_20251114004532_408_299.jpg',
+  '2016法国鲁贝/微信图片_20251114004534_409_299.jpg',
+  '2017南京/2_DSC_2117.jpg',
+  '2017南京/2_iske2017合影.jpg',
+  '2017南京/微信图片_20251114105354_465_299.jpg',
+  '2017南京/微信图片_20251114105422_467_299.jpg',
+  '2018贝尔法斯特/微信图片_20251113200613_401_299.jpg',
+  '2019大连/微信图片_20251113183301_353_299.jpg',
+  '2019大连/微信图片_20251114101950_442_299.jpg',
+  '2020德国线上/微信图片_20251114135234_485_299.png',
+  '2021成都/1_mmexport337935a75e349712f9c3997ca265ced3_1637996.jpeg',
+  '2021成都/1_mmexporte3c7e88a749b089b313696a63c0b042a_1637996.jpeg',
+  '2021成都/微信图片_20251114101553_439_299.jpg',
+  '2021成都/微信图片_20251114101555_440_299.jpg',
+  '2022天津/微信图片_20251114103822_451_299.jpg',
+  '2022天津/微信图片_20251114103832_452_299.jpg',
+  '2022天津/微信图片_20251114103840_453_299.jpg',
+  '2022天津/微信图片_20251114110250_473_299.jpg',
+  '2022天津/微信图片_20251114110309_475_299.jpg',
+  '2023福州/微信图片_20251113191921_386_299.jpg',
+  '2023福州/微信图片_20251114094745_414_299.jpg',
+  '2025顺德/1.jpg',
+  '2025顺德/8.JPG',
+  '2025顺德/14.JPG',
+  '2025顺德/15.JPG',
+  '2025顺德/19.JPG',
+  '2025顺德/20.JPG',
+  '2025顺德/21.JPG',
+  '2025顺德/22.jpg'
+]);
+const isGroupPhoto = (photo) => LARGE_GROUP_PHOTOS.has(photo);
+
+const CHUNK_SIZE = 3;
+const chunk = (arr, size) => {
+  const out = [];
+  for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size));
+  return out;
+};
+
+// Merge consecutive raw entries for the same year so leftover non-group
+// photos can be re-chunked together instead of being stranded solo when a
+// group photo is pulled out of their original curated bundle.
+const mergeByYear = (rawSlides) => {
+  const merged = [];
+  rawSlides.forEach((data) => {
+    const last = merged[merged.length - 1];
+    if (last && !data.ongoing && !last.ongoing && last.year === data.year) {
+      last.photos.push(...data.photos);
+    } else {
+      merged.push({ ...data, photos: [...data.photos] });
+    }
+  });
+  return merged;
+};
+
+const expandSlides = (rawSlides) =>
+  mergeByYear(rawSlides).flatMap((data) => {
+    const groupPhotos = data.photos.filter(isGroupPhoto);
+    const otherPhotos = data.photos.filter((photo) => !isGroupPhoto(photo));
+
+    const expandedSlides = groupPhotos.map((photo) => ({ ...data, photos: [photo], single: true }));
+
+    chunk(otherPhotos, CHUNK_SIZE).forEach((photos) => {
+      expandedSlides.push({ ...data, photos, single: false });
+    });
+
+    return expandedSlides;
+  });
+
+const slides = expandSlides([
   // 2007 Chengdu
   { year:'2007', location:'Chengdu, China', photos:[
     '2007成都/微信图片_20251114100105_423_299.jpg',
@@ -452,7 +529,7 @@ const slides = [
 
   // 2026 Sydney — ongoing
   { year:'2026', location:'Sydney, Australia', ongoing: true, photos:['../7OtcU2sd.jpeg'] }
-];
+]);
 
 const TOTAL = slides.length;
 const INTERVAL = 5000;
@@ -474,8 +551,9 @@ const slideEls = slides.map((data, i) => {
   div.className = 'slide' + (data.ongoing ? ' ongoing' : '');
 
   const n = data.photos.length;
+  const isSingleSlide = data.single || n === 1;
   const grid = document.createElement('div');
-  grid.className = 'photo-grid' + (n === 1 ? ' one' : n === 3 ? ' three' : '');
+  grid.className = 'photo-grid' + (isSingleSlide ? ' one' : n === 3 ? ' three' : '');
 
   data.photos.forEach(p => {
     const wrap = document.createElement('div');
