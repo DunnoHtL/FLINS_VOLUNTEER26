@@ -172,6 +172,36 @@
     background: rgba(255,255,255,0.5);
     width: 0%;
   }
+
+  /* 2026 ongoing slide */
+  .slide.ongoing { border: 2px solid rgba(255,200,0,0.25); }
+  .slide.ongoing .caption .year { color: #ffd700; }
+  .slide.ongoing .caption .location { color: #ffec7a; }
+  .live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(255, 60, 60, 0.15);
+    border: 1px solid rgba(255,80,80,0.5);
+    border-radius: 20px;
+    padding: 5px 14px;
+    margin-top: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: #ff6b6b;
+    text-transform: uppercase;
+  }
+  .live-dot {
+    width: 8px; height: 8px;
+    background: #ff4444;
+    border-radius: 50%;
+    animation: pulse 1.2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
 </style>
 </head>
 <body>
@@ -185,7 +215,7 @@
 </div>
 
 <div id="footer">
-  <span id="counter">1 / 40</span>
+  <span id="counter">1 / 41</span>
   <div id="progress-bar"><div id="progress-fill"></div></div>
   <button id="play-btn">PAUSE</button>
 </div>
@@ -371,7 +401,10 @@ const slides = [
   { year:'2025', location:'Shunde, China', photos:['2025顺德/12.JPG','2025顺德/13.JPG','2025顺德/14.JPG']},
   { year:'2025', location:'Shunde, China', photos:['2025顺德/15.JPG','2025顺德/16.JPG','2025顺德/17.JPG']},
   { year:'2025', location:'Shunde, China', photos:['2025顺德/18.JPG','2025顺德/19.JPG','2025顺德/20.JPG']},
-  { year:'2025', location:'Shunde, China', photos:['2025顺德/21.JPG','2025顺德/22.jpg']}
+  { year:'2025', location:'Shunde, China', photos:['2025顺德/21.JPG','2025顺德/22.jpg']},
+
+  // 2026 Sydney — ongoing
+  { year:'2026', location:'Sydney, Australia', ongoing: true, photos:['../7OtcU2sd.jpeg'] }
 ];
 
 const TOTAL = slides.length;
@@ -391,7 +424,7 @@ const timerFill = document.getElementById('timer-fill');
 // Build slide elements
 const slideEls = slides.map((data, i) => {
   const div = document.createElement('div');
-  div.className = 'slide';
+  div.className = 'slide' + (data.ongoing ? ' ongoing' : '');
 
   const n = data.photos.length;
   const grid = document.createElement('div');
@@ -401,7 +434,7 @@ const slideEls = slides.map((data, i) => {
     const wrap = document.createElement('div');
     wrap.className = 'photo-wrap';
     const img = document.createElement('img');
-    img.src = BASE + p;
+    img.src = data.ongoing ? p : BASE + p;
     img.alt = data.year + ' ' + data.location;
     img.loading = i < 3 ? 'eager' : 'lazy';
     wrap.appendChild(img);
@@ -410,7 +443,10 @@ const slideEls = slides.map((data, i) => {
 
   const caption = document.createElement('div');
   caption.className = 'caption';
-  caption.innerHTML = `<div class="year">${data.year}</div><div class="location">${data.location}</div>`;
+  const badge = data.ongoing
+    ? `<div class="live-badge"><span class="live-dot"></span>Conference Ongoing</div>`
+    : '';
+  caption.innerHTML = `<div class="year">${data.year}</div><div class="location">${data.location}</div>${badge}`;
 
   div.appendChild(grid);
   div.appendChild(caption);
